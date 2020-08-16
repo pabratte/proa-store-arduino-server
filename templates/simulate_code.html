@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Simulate Arduino RFID Code</h1>
+<form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+            <div class="form-group">
+                <label for="{{field.label}}">RFID Code</label>
+                <input type="text" class="form-control" name="{{field.name}}" id="{{field.id}}" placeholder="" required="">
+            </div>
+    {% endfor %}
+    
+
+    <button type="submit" class="btn btn-primary">Simulate RFID</button>
+</form>
+<br>
+<br>
+<br>
+<h4>Already simulated codes</h4>
+<ul>
+    {% for c in simulated_codes %}
+        <a href="" class="simulated_code"><li>{{c}}</li></a>
+    {% endfor %}
+</ul>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+$(document).ready(function(){
+    $('.simulated_code').click(function(e){
+        e.preventDefault()
+        $('[name=rfid_code]').val($(this).text())
+        $('form').submit()
+    })
+})
+</script>
+{% endblock %}
+
