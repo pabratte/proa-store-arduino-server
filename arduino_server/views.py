@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .forms import SimulateRFIDCodeForm
 import serial, time
 import sys
@@ -28,7 +29,7 @@ def code_arduino(request):
     else:
         if arduino:
             rawString = arduino.readline()
-        rawString = rawString.decode("utf-8")  
+            rawString = rawString.decode("utf-8")  
     return JsonResponse({'rfid': rawString})
 
 
